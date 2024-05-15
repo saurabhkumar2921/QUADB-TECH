@@ -1,0 +1,26 @@
+fn longest_common_prefix(strings: &[&str]) -> String {
+    if strings.is_empty() {
+        return String::new();
+    }
+
+    let first = strings[0].as_bytes();
+    let mut prefix_len = first.len();
+
+    for &string in &strings[1..] {
+        let mut i = 0;
+        let bytes = string.as_bytes();
+
+        while i < prefix_len && i < bytes.len() && first[i] == bytes[i] {
+            i += 1;
+        }
+
+        prefix_len = i;
+    }
+
+    String::from_utf8_lossy(&first[..prefix_len]).into_owned()
+}
+
+fn main() {
+    let strings = vec!["flower", "flow", "flight"];
+    println!("Longest common prefix: {}", longest_common_prefix(&strings));
+}
